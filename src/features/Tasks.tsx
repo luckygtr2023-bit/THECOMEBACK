@@ -12,8 +12,8 @@ export function Tasks() {
   const [newMinutes, setNewMinutes] = useState(30);
   const [newPriority, setNewPriority] = useState<Task['priority']>('medium');
   const [filter, setFilter] = useState<'all' | 'pending' | 'completed' | 'overdue'>('all');
-  const subjects = useLiveQuery(() => db.subjects.where('enabled').equals(1).toArray(), [], []);
-  const chapters = useLiveQuery(() => db.chapters.where('archived').equals(0).and(c => c.enabled).toArray(), [], []);
+  const subjects = useLiveQuery(() => db.subjects.filter(s => s.enabled).toArray(), [], []);
+  const chapters = useLiveQuery(() => db.chapters.filter(c => !c.archived && c.enabled).toArray(), [], []);
   const [newSubject, setNewSubject] = useState('');
   const [newChapter, setNewChapter] = useState('');
 

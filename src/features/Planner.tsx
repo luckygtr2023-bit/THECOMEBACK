@@ -7,8 +7,8 @@ const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export function Planner() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const subjects = useLiveQuery(() => db.subjects.where('enabled').equals(1).toArray(), [], []);
-  const chapters = useLiveQuery(() => db.chapters.where('archived').equals(0).and(c => c.enabled).toArray(), [], []);
+  const subjects = useLiveQuery(() => db.subjects.filter(s => s.enabled).toArray(), [], []);
+  const chapters = useLiveQuery(() => db.chapters.filter(c => !c.archived && c.enabled).toArray(), [], []);
   const [showAddTask, setShowAddTask] = useState(false);
   const [selectedDay, setSelectedDay] = useState('');
   const [newTaskTitle, setNewTaskTitle] = useState('');

@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { BookOpen, CheckCircle2, Clock, TrendingUp, AlertCircle, Target } from 'lucide-react';
 
 export function Dashboard() {
-  const subjects = useLiveQuery(() => db.subjects.where('enabled').equals(1).toArray(), [], []);
-  const chapters = useLiveQuery(() => db.chapters.where('enabled').equals(1).and(c => !c.archived).toArray(), [], []);
+  const subjects = useLiveQuery(() => db.subjects.filter(s => s.enabled).toArray(), [], []);
+  const chapters = useLiveQuery(() => db.chapters.filter(c => c.enabled && !c.archived).toArray(), [], []);
   const todayTasks = useLiveQuery(() => db.tasks.where('date').equals(new Date().toISOString().split('T')[0]).toArray(), [], []);
   const revisionDue = useLiveQuery(() => {
     const today = new Date().toISOString().split('T')[0];
