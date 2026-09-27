@@ -13,7 +13,7 @@ const MISTAKE_LABELS: Record<Mistake['mistakeType'], string> = {
 };
 
 export function Mistakes() {
-  const chapters = useLiveQuery(() => db.chapters.where('archived').equals(0).and(c => c.enabled).toArray(), [], []);
+  const chapters = useLiveQuery(() => db.chapters.filter(c => !c.archived && c.enabled).toArray(), [], []);
   const mistakes = useLiveQuery(() => db.mistakes.orderBy('createdAt').reverse().toArray(), [], []);
   const [showAdd, setShowAdd] = useState(false);
   const [filterType, setFilterType] = useState<string>('all');

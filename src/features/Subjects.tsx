@@ -6,7 +6,7 @@ import { Plus, Edit2, Trash2, ChevronDown, ChevronRight, Eye, EyeOff } from 'luc
 
 export function Subjects() {
   const subjects = useLiveQuery(() => db.subjects.orderBy('order').toArray(), [], []);
-  const chapters = useLiveQuery(() => db.chapters.where('archived').equals(0).toArray(), [], []);
+  const chapters = useLiveQuery(() => db.chapters.filter(c => !c.archived).toArray(), [], []);
   const [expandedSubject, setExpandedSubject] = useState<string | null>(null);
   const [editingSubject, setEditingSubject] = useState<Subject | null>(null);
   const [showAddSubject, setShowAddSubject] = useState(false);

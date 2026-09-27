@@ -5,7 +5,7 @@ import { BarChart3, BookOpen, CheckCircle2, Clock, Target, AlertTriangle } from 
 export function Analytics() {
   const today = getToday();
   const subjects = useLiveQuery(() => db.subjects.toArray(), [], []);
-  const chapters = useLiveQuery(() => db.chapters.where('archived').equals(0).and(c => c.enabled).toArray(), [], []);
+  const chapters = useLiveQuery(() => db.chapters.filter(c => !c.archived && c.enabled).toArray(), [], []);
   const tasks = useLiveQuery(() => db.tasks.toArray(), [], []);
   const revisionItems = useLiveQuery(() => db.revisionItems.toArray(), [], []);
   const testRecords = useLiveQuery(() => db.testRecords.orderBy('date').toArray(), [], []);

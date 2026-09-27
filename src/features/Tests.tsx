@@ -4,8 +4,8 @@ import { db, generateId, formatDate, type TestRecord } from '../database/db';
 import { Plus, TrendingUp, TrendingDown, Minus, Trash2, Edit2 } from 'lucide-react';
 
 export function Tests() {
-  const subjects = useLiveQuery(() => db.subjects.where('enabled').equals(1).toArray(), [], []);
-  const chapters = useLiveQuery(() => db.chapters.where('archived').equals(0).and(c => c.enabled).toArray(), [], []);
+  const subjects = useLiveQuery(() => db.subjects.filter(s => s.enabled).toArray(), [], []);
+  const chapters = useLiveQuery(() => db.chapters.filter(c => !c.archived && c.enabled).toArray(), [], []);
   const testRecords = useLiveQuery(() => db.testRecords.orderBy('date').reverse().toArray(), [], []);
   const [showAdd, setShowAdd] = useState(false);
   const [editing, setEditing] = useState<TestRecord | null>(null);

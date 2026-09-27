@@ -5,7 +5,7 @@ import { Plus, Clock, CheckCircle2, AlertCircle, RotateCcw } from 'lucide-react'
 
 export function Revision() {
   const today = getToday();
-  const chapters = useLiveQuery(() => db.chapters.where('archived').equals(0).and(c => c.enabled).toArray(), [], []);
+  const chapters = useLiveQuery(() => db.chapters.filter(c => !c.archived && c.enabled).toArray(), [], []);
   const subjects = useLiveQuery(() => db.subjects.toArray(), [], []);
   const revisionItems = useLiveQuery(() => db.revisionItems.orderBy('nextReviewDate').toArray(), [], []);
   const [showAdd, setShowAdd] = useState(false);
